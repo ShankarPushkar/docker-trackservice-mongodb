@@ -1,0 +1,18 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb-springboot
+    restart: always
+    volumes:
+      - $HOME/data/:/data/db
+
+  track-service:
+    build: .
+    ports:
+      - 8089:8080
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    restart: always
